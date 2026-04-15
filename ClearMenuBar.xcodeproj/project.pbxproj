@@ -13,6 +13,8 @@
 		54435BF22E0B5B77005B6DD6 /* DequeModule in Frameworks */ = {isa = PBXBuildFile; productRef = 54435BF12E0B5B77005B6DD6 /* DequeModule */; };
 		54435BF42E0B5B77005B6DD6 /* HashTreeCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 54435BF32E0B5B77005B6DD6 /* HashTreeCollections */; };
 		54435BF62E0B5B77005B6DD6 /* HeapModule in Frameworks */ = {isa = PBXBuildFile; productRef = 54435BF52E0B5B77005B6DD6 /* HeapModule */; };
+		549469FD2F902C750081F577 /* Schwifty in Frameworks */ = {isa = PBXBuildFile; productRef = 549469FC2F902C750081F577 /* Schwifty */; };
+		54946A002F902C9D0081F577 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = 549469FF2F902C9D0081F577 /* Swinject */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,7 +39,9 @@
 				54435BF22E0B5B77005B6DD6 /* DequeModule in Frameworks */,
 				54435BEE2E0B5B77005B6DD6 /* BitCollections in Frameworks */,
 				54435BF62E0B5B77005B6DD6 /* HeapModule in Frameworks */,
+				549469FD2F902C750081F577 /* Schwifty in Frameworks */,
 				54435BEB2E0B5B48005B6DD6 /* BHSwiftOSLogStream in Frameworks */,
+				54946A002F902C9D0081F577 /* Swinject in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +90,8 @@
 				54435BF12E0B5B77005B6DD6 /* DequeModule */,
 				54435BF32E0B5B77005B6DD6 /* HashTreeCollections */,
 				54435BF52E0B5B77005B6DD6 /* HeapModule */,
+				549469FC2F902C750081F577 /* Schwifty */,
+				549469FF2F902C9D0081F577 /* Swinject */,
 			);
 			productName = ClearMenuBar;
 			productReference = 54435B412E0B4780005B6DD6 /* Clear Menu Bar.app */;
@@ -118,6 +124,8 @@
 			packageReferences = (
 				54435BE92E0B5B48005B6DD6 /* XCRemoteSwiftPackageReference "BHSwiftOSLogStream" */,
 				54435BEC2E0B5B77005B6DD6 /* XCRemoteSwiftPackageReference "swift-collections" */,
+				549469FB2F902C750081F577 /* XCRemoteSwiftPackageReference "Schwifty" */,
+				549469FE2F902C9D0081F577 /* XCRemoteSwiftPackageReference "Swinject" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 54435B422E0B4780005B6DD6 /* Products */;
@@ -280,7 +288,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Clear Menu Bar";
@@ -292,8 +300,8 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 1.1.4;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zorth64.ClearMenuBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -314,7 +322,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Clear Menu Bar";
@@ -326,8 +334,8 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 1.1.4;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zorth64.ClearMenuBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -378,6 +386,22 @@
 				version = 1.1.4;
 			};
 		};
+		549469FB2F902C750081F577 /* XCRemoteSwiftPackageReference "Schwifty" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/curzel-it/Schwifty.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.9;
+			};
+		};
+		549469FE2F902C9D0081F577 /* XCRemoteSwiftPackageReference "Swinject" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Swinject/Swinject.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.10.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -410,6 +434,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 54435BEC2E0B5B77005B6DD6 /* XCRemoteSwiftPackageReference "swift-collections" */;
 			productName = HeapModule;
+		};
+		549469FC2F902C750081F577 /* Schwifty */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 549469FB2F902C750081F577 /* XCRemoteSwiftPackageReference "Schwifty" */;
+			productName = Schwifty;
+		};
+		549469FF2F902C9D0081F577 /* Swinject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 549469FE2F902C9D0081F577 /* XCRemoteSwiftPackageReference "Swinject" */;
+			productName = Swinject;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

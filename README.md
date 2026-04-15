@@ -8,19 +8,27 @@
 
 ## Features
 
-- Supports single wallpaper or multiple wallpapers in a folder;
+- Supports single wallpaper or multiple wallpapers from a folder;
 - Supports light and dark mode.
+
+## Feature Support
+
+|                                                                         | Reduce Transparency **Off** | Reduce Transparency **On** |
+|-------------------------------------------------------------------------|-----------------------------|----------------------------|
+| Single Wallpaper (JPG or PNG image)                                     | ✅                          | ✅                         |
+| Multiple Wallpapers from a Folder (JPG or PNG images)                   | ❌                          | ✅                         |
+| Dynamic or Motion Wallpapers (Light/Dark mode or video support)         | ❌                          | ❌                         |
 
 ## Requirements
 
-- Requires macOS 13 Ventura or later.
-- The Reduce Transparency option must be enabled in the Accessibility options in the System Settings for this app to work as expected.
+- Requires macOS 14 Sonoma or later.
+- The Reduce Transparency option may need to be enabled in the Accessibility section of System Settings for this application to work as expected.
 - The wallpaper needs to be set with the "Fill Screen" option.
 - The wallpaper needs to be a static image. This app will not work with dynamic or aerial wallpapers.
 
 ## Contributing
 
-This app was developed and tested on an old Intel Mac running macOS Sequoia. Feel free to update the source code to adapt this app to work on newer Macs with Apple Silicon and notch display. Pull requests are welcome.
+Pull requests are welcome.
 
 ## License
 [GNU General Public License](https://github.com/zorth64/ClearMenuBar/blob/master/LICENSE)

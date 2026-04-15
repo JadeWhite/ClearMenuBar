@@ -1,5 +1,5 @@
 {
-  "originHash" : "134b8717613850e3342ddf616d4536fbb1d881bc45b109155fc816d670e6b7fe",
+  "originHash" : "8cc31b498e9e27d75d8897dc7bfac38c2e6b674451c1225acbf8e1bce8bdd14c",
   "pins" : [
     {
       "identity" : "bhswiftoslogstream",
@@ -11,12 +11,30 @@
       }
     },
     {
+      "identity" : "schwifty",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/curzel-it/Schwifty.git",
+      "state" : {
+        "revision" : "9620d6a851f4c81c458cfa37fe50d0906f872a9c",
+        "version" : "1.2.9"
+      }
+    },
+    {
       "identity" : "swift-collections",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-collections.git",
       "state" : {
         "revision" : "671108c96644956dddcd89dd59c203dcdb36cec7",
         "version" : "1.1.4"
+      }
+    },
+    {
+      "identity" : "swinject",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Swinject/Swinject.git",
+      "state" : {
+        "revision" : "b685b549fe4d8ae265fc7a2f27d0789720425d69",
+        "version" : "2.10.0"
       }
     }
   ],

@@ -6,7 +6,7 @@
 //
 
 import Cocoa
-import Foundation
+import SwiftUI
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -14,6 +14,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var statusItem: NSStatusItem?
     
     @IBOutlet weak var menu: NSMenu?
+    
+    var preferencesWindow: NSWindow?
+        
+    override init() {
+        super.init()
+        
+        Dependencies.setup()
+    }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         let menuBarWindow = MenuBarWindow(
@@ -57,6 +65,29 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if let menu = menu {
             statusItem?.menu = menu
         }
+    }
+    
+    @IBAction func preferences(_ sender: Any?) {
+        if (preferencesWindow == nil) {
+            let preferencesView = PreferencesView()
+            preferencesWindow = NSWindow(
+                contentRect: NSRect(x: 0, y: 0, width: 570, height: 210),
+                styleMask: [.titled, .closable],
+                backing: .buffered,
+                defer: false
+            )
+            preferencesWindow?.level = .floating
+            preferencesWindow?.collectionBehavior = .canJoinAllSpaces
+            preferencesWindow?.center()
+            preferencesWindow?.title = "Clear Menu Bar Settings"
+            preferencesWindow?.isReleasedWhenClosed = false
+            preferencesWindow?.miniaturize(nil)
+            preferencesWindow?.zoom(nil)
+            preferencesWindow?.contentView = NSHostingView(rootView: preferencesView)
+        }
+        
+        preferencesWindow?.makeKeyAndOrderFront(nil)
+        NSApp.activate(ignoringOtherApps: true)
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

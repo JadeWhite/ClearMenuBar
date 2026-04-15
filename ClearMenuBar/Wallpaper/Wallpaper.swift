@@ -172,17 +172,144 @@ public enum Wallpaper {
      */
     public static func get(screen: Screen = .all) -> [URL?] {
         let wallpaperURLs = screen.nsScreens.compactMap { NSWorkspace.shared.desktopImageURL(for: $0) }
-        return wallpaperURLs.map { $0.isDirectory ? getLastWallpaperURL() : $0 }
+        return wallpaperURLs.map { url in
+            if #available(macOS 26, *) {
+                return url
+            } else {
+                if (url.isDirectory) {
+                    return getLastWallpaperURL()
+                } else {
+                    return url
+                }
+            }
+        }
     }
     
     public static func getCurrent(screen: Screen = .all) -> [URL?] {
         let wallpaperURLs = screen.nsScreens.compactMap { NSWorkspace.shared.desktopImageURL(for: $0) }
-        return wallpaperURLs.map { $0.isDirectory ? getCurrentWallpaperURL() : $0 }
+        return wallpaperURLs.map { url in
+            if #available(macOS 26, *) {
+                return url
+            } else {
+                if (url.isDirectory) {
+                    return getCurrentWallpaperURL()
+                } else {
+                    return url
+                }
+            }
+        }
     }
     
     public static func isWallpaperFromADirectory(screen: Screen = .all) -> [Bool?] {
         let wallpaperURLs = screen.nsScreens.compactMap{ NSWorkspace.shared.desktopImageURL(for: $0) }
         
         return wallpaperURLs.map { $0.isDirectory }
+    }
+    
+    /**
+    Set an image URL as wallpaper.
+    */
+    public static func set(
+        _ image: URL,
+        screen: Screen = .all,
+        scale: Scale = .auto,
+        fillColor: NSColor? = nil
+    ) throws {
+        try validateFile(image)
+
+        var options = [NSWorkspace.DesktopImageOptionKey: Any]()
+
+        switch scale {
+        case .auto:
+            break
+        case .fill:
+            options[.imageScaling] = NSImageScaling.scaleProportionallyUpOrDown.rawValue
+            options[.allowClipping] = true
+        case .fit:
+            options[.imageScaling] = NSImageScaling.scaleProportionallyUpOrDown.rawValue
+            options[.allowClipping] = false
+        case .stretch:
+            options[.imageScaling] = NSImageScaling.scaleAxesIndependently.rawValue
+            options[.allowClipping] = true
+        case .center:
+            options[.imageScaling] = NSImageScaling.scaleNone.rawValue
+            options[.allowClipping] = false
+        }
+
+        options[.fillColor] = fillColor
+
+        for nsScreen in screen.nsScreens {
+            try NSWorkspace.shared.setDesktopImageURL(image, for: nsScreen, options: options)
+        }
+    }
+    
+    private static func validateFile(_ url: URL) throws {
+        var isDirectory: ObjCBool = false
+
+        guard FileManager.default.fileExists(atPath: url.path, isDirectory: &isDirectory) else {
+            throw NSError(
+                domain: "WallpaperError",
+                code: 1,
+                userInfo: [NSLocalizedDescriptionKey: "The file doesn't exist."]
+            )
+        }
+
+        if !isDirectory.boolValue {
+            guard (try? url.checkResourceIsReachable()) == true else {
+                throw NSError(
+                    domain: "WallpaperError",
+                    code: 1,
+                    userInfo: [NSLocalizedDescriptionKey: "The file exists but is not accessible."]
+                )
+            }
+        }
+    }
+    
+    public static func applicationSupportDirectory() -> URL? {
+        let fileManager = FileManager.default
+        
+        guard let baseURL = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first else {
+            return nil
+        }
+         
+        let appFolder = baseURL.appendingPathComponent(Bundle.main.bundleIdentifier ?? "com.zorth64.ClearMenuBar")
+            
+        if !fileManager.fileExists(atPath: appFolder.path) {
+            try? fileManager.createDirectory(at: appFolder, withIntermediateDirectories: true)
+        }
+        
+        return appFolder
+    }
+    
+    public static func generateToken() -> String {
+        String((0..<6).compactMap { _ in "abcdefghijklmnopqrstuvwxyz0123456789".randomElement() })
+    }
+    
+    public static func saveWallpaper(_ image: NSImage) -> URL? {
+        guard let directory = applicationSupportDirectory() else { return nil }
+        guard let data = image.pngData() else { return nil }
+       
+        let token = generateToken()
+        let filename = "Managed by Clear Menu Bar (\(token)).png"
+        let fileURL = directory.appendingPathComponent(filename)
+        
+        do {
+            try data.write(to: fileURL)
+            return fileURL
+        } catch {
+            print("Error saving image: ", error)
+            return nil
+        }
+    }
+}
+
+extension NSImage {
+    func pngData() -> Data? {
+        guard let tiffData = self.tiffRepresentation,
+              let bitmap = NSBitmapImageRep(data: tiffData) else {
+            return nil
+        }
+        
+        return bitmap.representation(using: .png, properties: [:])
     }
 }
