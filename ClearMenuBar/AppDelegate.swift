@@ -92,6 +92,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NSApp.activate(ignoringOtherApps: true)
     }
 
+    // If the menu bar item was hidden, and the user reopens the app while it's running, show the menu bar item again.
+    func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+        if statusItem?.isVisible == false {
+            statusItem?.isVisible = true
+        }
+        return true
+    }
+
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
     }
