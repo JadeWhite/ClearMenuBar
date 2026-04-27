@@ -62,6 +62,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             statusItem?.button?.image = image.withSymbolConfiguration(config)
         }
         
+        statusItem?.behavior = .removalAllowed
+
         if let menu = menu {
             statusItem?.menu = menu
         }
